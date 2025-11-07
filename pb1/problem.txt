@@ -1,0 +1,4 @@
+Let G(V, E) be a connected graph. Based on the exercise 3 from Lecture 3 devise an efficient
+algorithm for finding all edges belonging to at least a cycle of G.
+a) Compute its time complexity and prove its correctness.
+b) Are there any other more efficient algorithms?
