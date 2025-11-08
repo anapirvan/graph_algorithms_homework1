@@ -1,0 +1,8 @@
+Let G = (V, E) be a graph. A X-trading of G is process of changing G like follows: it requires
+four distinct vertices a, b, c, d ∈ V such that ad, bc are edges of G and ac, bd are not, then we delete
+the edges ad and bc and add the edges ac, bd.
+a) Let G and G′ be two graphs such that V (G) = V (G′
+) and dG(u) = dG′(u), ∀u ∈ V (G). Prove
+that G can be transformed in G′ using a finite number of X-tradings .
+b) Find a connected graph with 6 vertices and a minimum number of edges for which no X-trading
+is possible.

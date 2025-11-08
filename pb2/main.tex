@@ -1,0 +1,107 @@
+\section*{Problem 2}
+\vspace{-1.5ex}
+\vspace{-2ex}
+
+\subsection*{a)}
+
+We consider a new graph $H$ with the following properties:
+\begin{enumerate}
+\item $V(H)=V(G)=V(G')$
+\item $E(H)=(E(G) \setminus E(G')) \cup (E(G') \setminus E(G))$
+\item $d_H(u)=|(E_G(u) \setminus E_{G'}(u)) \cup (E_{G'}(u) \setminus E_G(u))|$
+\end{enumerate}
+
+Here, $E_G(u)$ denotes the set of all edges incident to vertex $u$ in graph $G$.
+Thus, as long as $E(H) \neq \emptyset$, we have $G \neq G'$.
+
+From the properties of graphs $G$ and $G'$, we obtain the following relations for all $\forall u \in V(G)=V(G')$:
+\begin{enumerate}
+\item $d_G(u)=|(E_G(u) \setminus E_{G'}(u)) \cup (E_G(u) \cap E_{G'}(u))|$
+\item $d_{G'}(u)=|(E_{G'}(u) \setminus E_G(u)) \cup (E_{G'}(u) \cap E_G(u))|$
+\end{enumerate}
+
+\begin{flalign*}
+\text{From }(1,2) &\Rightarrow |E_G(u) \setminus E_{G'}(u)| + |E_G(u) \cap E_{G'}(u)| = |E_{G'}(u) \setminus E_G(u)| + |E_{G'}(u) \cap E_G(u)| \
+&\Rightarrow |E_G(u) \setminus E_{G'}(u)| = |E_{G'}(u) \setminus E_G(u)|
+\end{flalign*}
+
+Using this relation, we obtain:
+\begin{flalign*}
+\quad d_H(u)&=|(E_G(u) \setminus E_{G'}(u)) \cup (E_{G'}(u) \setminus E_G(u))| \
+&=|E_G(u) \setminus E_{G'}(u)| + |E_{G'}(u) \setminus E_G(u)| \
+\quad &=|E_G(u) \setminus E_{G'}(u)|+|E_G(u) \setminus E_{G'}(u)| =2|E_G(u) \setminus E_{G'}(u)|\
+\quad & \Rightarrow \forall u \in V(H), \text{ the degree is even } \Rightarrow H \text{ can be decomposed into disjoint circuits.}
+\end{flalign*}
+
+We will now prove that any circuit in $H$ is formed by alternating edges (one edge from $G$, followed by one edge from $G'$):
+\begin{itemize}
+\item $d_G(u)=d_{G'}(u)$
+\end{itemize}
+
+\begin{itemize}
+\item If we traverse an edge $(v_1, v_2) \in E(H)$, where $(v_1,v_2) \in E(G) \setminus E(G')$, we must continue from $v_2$ on an edge $(v_2,v_3) \in E(G') \setminus E(G)$.
+\item Suppose we reach a vertex $v_n \neq v_1$ where we get stuck (there is no edge from the other graph to continue with). Let us assume that we reached $v_n$ through an edge belonging to $G$. This means that we have already traversed $i+1$ edges from $G$ but only $i$ edges from $G'$.
+\item Since the number of edges from $G$ incident to $v_n$ equals the number of edges from $G'$ incident to $v_n$, it follows that we can continue along an edge from $G'$ and maintain alternation. \textit{(contradiction)}.
+\end{itemize}
+
+\noindent\textit{\textbf{Induction:}}
+\begin{flalign*}
+\text{\qquad }\textbf{P(k):} & \text{ Any graph } G \text{ with } d_G(u)=d_{G'}(u), \forall u \in V(G)=V(G') \text{ and } |E(H)|=k, &\
+&\text{can be transformed into } G' \text{ through a finite number of X-switches.} &
+\end{flalign*}
+
+\noindent\textit{\textbf{I. Base step:}}
+\begin{flalign*}
+&\qquad P(0): \
+&\qquad k=0 \Rightarrow |E(H)|=0 \
+& \qquad |E(H)|=0 \Rightarrow E(G)\setminus E(G') = \emptyset \text{ and } E(G')\setminus E(G) = \emptyset \
+&\qquad E(G)=E(G') \text{ and } V(G)=V(G') \textbf{ (by hypothesis)} \Rightarrow G=G' \
+&\qquad \text{The transformation from } G \text{ to } G' \text{ requires 0 X-switches, and 0 is finite.}\
+&\qquad P(0) \text{ – true.}
+\end{flalign*}
+
+\noindent\textit{\textbf{II. Inductive step:}}
+\begin{flalign*}
+&\qquad \text{Assume } P(m) \text{ is true for all } m, 0\le m <k \
+&\qquad \text{We prove } P(k) \text{ for } k>0 \
+&\qquad \text{Let } C= { v_1,v_2,v_3, ... , v_1 }\text{ be a minimal alternating circuit. Without loss of generality:}\
+&\qquad\qquad \circ (v_1,v_2) \in E_G \setminus E_{G'}\
+&\qquad\qquad \circ (v_2,v_3) \in E_{G'} \setminus E_G\
+&\qquad\qquad \circ (v_3,v_4) \in E_G \setminus E_{G'}\
+&\qquad \text{Let } a=v_1, \ d=v_2, \ b=v_3, \ c=v_4 \
+&\qquad \text{An X-switch consists of } G - { ad, bc} \ + { ac, bd } \
+&\qquad\qquad \circ ad \in E(G)\setminus E(G') \
+&\qquad\qquad \circ bc \in E(G) \setminus E(G') \
+&\qquad\qquad \circ ac \notin E(G), \text{ because if } ac \in E(G), \text{ then it either belongs only to } G \text{ or is common.}\
+&\qquad\qquad \text{Since we chose the shortest possible circuit, if } ac \in E(G), \text{ it would shorten the cycle \textit{(contradiction)}} \
+&\qquad\qquad \circ bd \notin E(G), \text{ by hypothesis } bd \in E(G') \setminus E(G) \
+&\qquad \text{Let } G_t=G-{ad,bc}+{ac,bd} \text{ be the graph obtained after one X-switch. Then:} \
+&\qquad\qquad \circ \text{\textbf{$k$} decreases by 1 as a result of removing the edge } {ad} \text{ from } E(G) \setminus E(G').\
+&\qquad\qquad \circ \text{\textbf{$k$} decreases by 1 as a result of removing the edge } {bc} \text{ from } E(G) \setminus E(G').\
+&\qquad\qquad \circ \text{\textbf{$k$} decreases by 1 as a result of adding the edge } {bd} \text{ to } E(G')\setminus E(G).\
+&\qquad\qquad \circ \text{$k$ decreases by 1 if \textbf{$ac \in E(G') \setminus E(G)$}, or increases by 1 if $ac \notin (E(G) \cup E(G'))$,}\
+&\qquad\qquad \text{and \textbf{$G_t$} gains one new “bad” edge.} \
+&\qquad\qquad \circ \text{\textbf{$k_t=k-4$} \textit{(ideal case)} or \textbf{$k_t=k-2$}}\
+&\qquad\qquad \circ \text{Since \textbf{$k_t<k$}, we can apply the inductive hypothesis for \textbf{$m=k_t$}.}\
+&\qquad\qquad \circ \text{\textbf{$k$} decreases gradually, so there will be a finite number of X-switches required to transform \textbf{$G$} into \textbf{$G'$}.}\
+\end{flalign*}
+
+\subsection*{b)}
+A connected graph with 6 vertices that does not allow any X-switch must have a central vertex connected to all the other 5 vertices. Thus, the resulting graph will have 5 edges \textit{(the minimum number of edges required for the graph to remain connected is 5)}:
+The edges of the graph are:
+\begin{itemize}
+\item $(0,1)$
+\item $(0,2)$
+\item $(0,3)$
+\item $(0,4)$
+\item $(0,5)$
+\end{itemize}
+
+No matter which two edges we choose, they will always be incident (i.e., share a common vertex). However, to apply an X-switch, the edges must be disjoint — which is not possible for the graph below.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{image.png}
+\caption{Star graph $K_{1,5}$}
+\label{fig:placeholder}
+\end{figure}
