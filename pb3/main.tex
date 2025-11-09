@@ -1,0 +1,84 @@
+\section*{Problem 3}
+\vspace{-1.5ex}
+\vspace{-2ex}
+
+\subsection*{a)}
+The weighted digraph $G=(V,E)$ models the road network as follows:
+\begin{itemize}
+\item each node $v \in V$ represents a locality;
+\item each edge $(u,v) \in E$ represents the road between localities $u$ and $v$;
+\item the function $c : E \to \mathbb{R}^*$ denotes the energy required to travel between two localities represented by the edge’s endpoints.
+\end{itemize}
+
+\subsection*{b)}
+
+\begin{tabbing}
+\hspace{1cm}= \hspace{1cm}= \hspace{1cm}= \hspace{1cm}= \kill
+
+\textbf{bfs}$(V,E,s)$ \\                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+\{\\ 
+\> textbf{for} $v \in V$~\textbf{do}\\
+\>\> $label[v] \gets -1$ \\
+\> $label[s] \gets 0$ \\
+\> create a queue $Q$ containing $s$ \\
+\> \textbf{while} $Q \neq \emptyset$ \textbf{do} \\
+\>\> $u \gets pop(Q)$ \\
+\>\> \textbf{for} $v \in A(u)$~\textbf{do} \\
+\>\>\> \textbf{if} $label[v] < 0$~\textbf{then} \\
+\>\>\>\> $label[v] \gets label[u]+1$ \\
+\>\>\>\> $push(Q,v)$ \\
+}\\
+\\
+
+\textbf{exists\_paths}$(V,E,s,t)$\\ 
+\{ \\ 
+\> $E1 \gets \{\}$ // $E1$ will contain only the edges that can be traversed with a battery of capacity $b$\\ 
+\> \textbf{for} $e \in E$~\textbf{do} \\ 
+\>\> \textbf{if} $c(e) \le b$~\textbf{then} \\ 
+\>\>\> $E1 \gets E1 \cup \{e\}$ \\ 
+\> \textbf{bfs}$(V,E1,s)$ \\ 
+\> \textbf{if} $label[t] = -1$ \textbf{then} // no path exists from $s$ to $t$\\ 
+\>\> \textbf{return} false\\ \> \textbf{bfs}$(V,E1,t)$\\ 
+\> \textbf{if} $label[s] = -1$ \textbf{then} // no path exists from $t$ to $s$\\ 
+\>\> \textbf{return} false\\ \> \textbf{return} true\\ 
+\}\\ 
+\\ 
+The graph $G$ will be represented using adjacency lists.\\ 
+The time complexity of the \textbf{bfs} algorithm is $O(|V|+|E|)$, and the time complexity of the\\ 
+\textbf{exists\_paths} algorithm remains $O(|V|+|E|)$. 
+\end{tabbing} 
+
+\subsection*{c)} 
+\begin{tabbing} 
+\hspace{1cm}\= \hspace{1cm}\= \hspace{1cm}\= \hspace{1cm}\= \kill 
+\textbf{modified\_dijkstra}$(V,E,p)$\\ 
+\{ \\ \> $S \gets \{p\}; \: dist[p] \gets 0$\\ 
+\> \textbf{for} $i \in V \setminus \{p\}$~\textbf{do} \\ \>\> $dist[i] \gets \infty$ \\ \> \textbf{while} $S \neq V$ \textbf{do}\\ 
+\>\> find $u \in V \setminus S$ \; such that \; $dist[u]=\min\{dist[v]: v \in V \setminus S\}$\\ \>\> $S \gets S \cup \{u\}$\\ 
+\>\> \textbf{for} $v \in V \setminus S$ \textbf{do}\\ \>\>\>$dist\_max \gets \max\{dist[u],c(\{u,v\})\}$\\ 
+\>\>\>\textbf{if} $dist\_max < dist[v]$ \textbf{then}\\ \>\>\>\>$dist[v] \gets dist\_max$\\ 
+\}
+\\ 
+\textbf{new\_capacity}$(V,E,p,r)$\\ 
+\{\\
+\>\textbf{modified\_dijkstra}$(V,E,p)$\\ 
+\>\textbf{if} $dist[r] = \infty$ \textbf{then} // no path exists from $p$ to $r$\\ 
+\>\>\textbf{return}\, -1\\ \>$bmin \gets dist[r]$\\ 
+\>\textbf{modified\_dijkstra}$(V,E,r)$\\ 
+\>\textbf{if} $dist[p] = \infty$ \textbf{then} // no path exists from $r$ to $p$\\ 
+\>\>\textbf{return}\, -1\\ \>$bmin \gets \max\{bmin,dist[p]\}$\\ 
+\>\textbf{return}\, $bmin$\\ 
+\}\\ 
+\\ 
+A car with a battery of capacity $b$ can travel along any path as long as the cost of each edge\\
+on that path is less than or equal to $b$. This implies that in order to travel between localities $p$ and $r$,\\
+the minimum battery capacity $b_{min}$ must be at least equal to the maximum-cost edge on that path.\\ 
+If multiple paths exist between $p$ and $r$, we choose the path for which $b_{min}$ is smallest.\\ 
+The \textbf{modified\_dijkstra} algorithm follows the principle of the classic Dijkstra algorithm, except that\\ 
+$dist[v]$ stores the maximum edge cost along a path to $v$ for which this maximum cost takes the smallest value.\\ 
+After running \textbf{dijkstra(p,r)}, $dist[r] = \infty$ if no path exists from $p$ to $r$, or the minimum battery\\ 
+capacity required to travel from $p$ to $r$. The same applies for \textbf{dijkstra(r,p)}, and finally,\\ 
+$b_{min}$ will store the minimum capacity required to travel both from $p$ to $r$ and from $r$ to $p$,\\ 
+or $-1$ if at least one of the paths does not exist.\\ The time complexity of the \textbf{new\_capacity} algorithm is $O(m \log n)$ if the $dist$ array\\ 
+values are stored in a priority queue. 
+\end{tabbing}

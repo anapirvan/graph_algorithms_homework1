@@ -1,0 +1,12 @@
+Suppose that you live in a country which has no highways but just national and departmental
+routes between cities. You know the network of these routes and you ride on them using an electric
+car which has a battery of capacity b (in kWh). For each route (between two cities) of the network it
+is known the energy consumption required to cross it. It is also known that the only way to charge
+your car battery is to be in a city (each city has at least an electric station).
+(a) Model the network using a certain digraph in order to solve the following two problems.
+(b) Suppose that your daily commute is between cities s and t. Describe an efficient algorithm for
+deciding if there is a suitable (for your car) pair of routes between s and t.
+(c) Next year you want to buy a new electric car because your daily commute changed between
+two new cities p and r. Find an efficient algorithm to determine the required new car battery
+capacity. (The goal is twofold: find an electric car able to traverse paths whose traversals cost
+is as small as possible).
