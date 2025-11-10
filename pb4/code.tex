@@ -1,0 +1,47 @@
+\section*{Problem 4}
+\vspace{-1.5ex}
+Zuzu Laura-Ioana (2A1)
+\vspace{-2ex}
+\subsection*{a)}
+
+Let $e = (s, t) \in E(P_{uv})$ such that in the graph $G' = G - e$, node $v$ is reachable from $u$. 
+We want to show that there exists a shortest path from $u$ to $v$ in $G'$ that contains exactly one in-turn relative to $P_{uv}$.
+
+By Bellman's principle of optimality, the subpaths $P_{us}$ and $P_{tv}$ (from $u$ to $s$, respectively from $t$ to $v$) are also shortest paths in $G$. 
+After removing the arc $e$, the shortest path in $G'$ has the form:
+\[
+P'_{uv} = P_{us} + D_{st} + P_{tv},
+\]
+where $D_{st}$ is a shortest path from $s$ to $t$ in $G'$, which does not contain the arc $e$.
+
+We will show that $D_{st}$ is an \textit{in-turn} relative to $P_{uv}$. 
+Assume, by contradiction, that there exists an intermediate node $x \in V(D_{st}) \setminus \{s, t\}$ that also belongs to $P_{uv}$. 
+We have two cases:
+
+\begin{itemize}
+    \item \textbf{Case 1:} $x \in V(P_{us})$. \\
+    Then $P_{us} = P_{ux} + P_{xs}$ and $D_{st} = D_{sx} + D_{xt}$. The new path $P'_{uv}$ becomes:
+    \[
+    P'_{uv} = P_{ux} + P_{xs} + D_{sx} + D_{xt} + P_{tv}.
+    \]
+    Consider the alternative path $P''_{uv} = P_{ux} + D_{xt} + P_{tv}$. 
+    Since all costs are strictly positive, $a(P_{xs}) > 0$ and $a(D_{sx}) > 0$, therefore:
+    \[
+    a(P'_{uv}) > a(P''_{uv}),
+    \]
+    contradiction, since the cost of $P'_{uv}$ must be minimal.
+
+    \item \textbf{Case 2:} $x \in V(P_{tv})$. \\
+    Then $P_{tv} = P_{tx} + P_{xv}$ and $D_{st} = D_{sx} + D_{xt}$. 
+    Similarly, considering the alternative path $P''_{uv} = P_{us} + D_{sx} + P_{xv}$, we have:
+    \[
+    a(P'_{uv}) > a(P''_{uv}),
+    \]
+    again a contradiction.
+\end{itemize}
+
+Therefore, $D_{st}$ contains no other nodes in common with $P_{uv}$, so it is an \textit{in-turn} relative to $P_{uv}$.
+
+\medskip
+\noindent
+\textbf{Conclusion:} True — there exists a shortest path from $u$ to $v$ in $G - e$ that contains exactly one in-turn relative to $P_{uv}$.

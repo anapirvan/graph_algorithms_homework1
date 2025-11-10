@@ -1,0 +1,5 @@
+Let G = (V, E) be a digraph and a : E → R∗+ a cost function on its arcs. Let Puv be a minimum
+cost path from u to v in G with respect to a. An in-tour with respect to Puv is a path D which
+intersects Puv only in its endpoints (of D).
+(a) Let e ∈ E(Puv) such that in G − e, v is accesible from u. True or false: there exists a minimum
+cost path from u to v in G − e containing just one in-tour with respect to Puv?
