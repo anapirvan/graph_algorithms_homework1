@@ -44,3 +44,44 @@ Therefore, $D_{st}$ contains no other nodes in common with $P_{uv}$, so it is an
 \medskip
 \noindent
 \textbf{Conclusion:} True — there exists a shortest path from $u$ to $v$ in $G - e$ that contains exactly one in-turn relative to $P_{uv}$.
+
+\subsection*{b)}
+Let \( x \in V(P_{uv}) \) such that in \( G'' = G - x \), the node \( v \) is reachable from \( u \).
+We want to show that there exists a shortest path from \( u \) to \( v \) in \( G'' \) which contains exactly one in-tour relative to \( P_{uv} \).
+
+Let \( s \) be the predecessor of \( x \) on \( P_{uv} \) and \( t \) its successor.
+The path \( P_{uv} \) can be written as:
+\[
+P_{uv} = P_{us} + (s, x) + (x, t) + P_{tv}.
+\]
+According to Bellman's principle of optimality, \( P_{us} \) and \( P_{tv} \) are shortest paths.
+After removing \( x \), the shortest path in \( G'' \) is:
+\[
+P''_{uv} = P_{us} + D_{st} + P_{tv},
+\]
+where \( D_{st} \) is a shortest path from \( s \) to \( t \) in \( G'' \) (which does not contain the node \( x \)).
+
+We assume, by contradiction, that \( D_{st} \) is not an in-tour, that is, there exists \( z \in V(D_{st}) \setminus \{s, t\} \) which belongs to \( P_{uv} \).
+
+\begin{itemize}
+    \item \textbf{Case 1:} \( z \in V(P_{us}) \). \\
+    Then \( P_{us} = P_{uz} + P_{zs} \) and \( D_{st} = D_{sz} + D_{zt} \).
+    Similar to the previous reasoning, we construct the alternative path \( P'''_{uv} = P_{uz} + D_{zt} + P_{tv} \) and obtain:
+    \[
+    a(P''_{uv}) > a(P'''_{uv}),
+    \]
+    a contradiction.
+
+    \item \textbf{Case 2:} \( z \in V(P_{tv}) \). \\
+    Then \( P_{tv} = P_{tz} + P_{zv} \) and \( D_{st} = D_{sz} + D_{zt} \), while the alternative path \( P'''_{uv} = P_{us} + D_{sz} + P_{zv} \) has a smaller cost:
+    \[
+    a(P''_{uv}) > a(P'''_{uv}),
+    \]
+    again a contradiction.
+\end{itemize}
+
+It follows that \( D_{st} \) does not contain any other nodes from \( P_{uv} \) and, therefore, it is an \textit{in-tour} relative to \( P_{uv} \).
+
+\medskip
+\noindent
+\textbf{Conclusion:} True — there exists a shortest path from \( u \) to \( v \) in \( G - x \) which contains exactly one in-tour relative to \( P_{uv} \).
